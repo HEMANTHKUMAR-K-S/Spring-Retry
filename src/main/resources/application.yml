@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: Spring-Retry
+  datasource:
+    url: jdbc:h2:mem:retrydb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  h2:
+    console:
+      enabled: true
+
+
+app:
+  retry:
+    exceptions:
+      InvalidUserException: 3
+      ServerUnavailableException: 4
+      DatabaseConnectionException: 5
+      PaymentFailedException: 3
+      ProductNotFoundException: 2
+      EmailServiceException: 4
+      ExternalApiException: 6
+retry:
+  inventory:
+    max-attempts: 2
+    delay: 2000
+    multiplier: 2
+    max-delay: 8000
+    api:
+      base-url: https://dummyjson.com
